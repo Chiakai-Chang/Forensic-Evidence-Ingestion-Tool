@@ -190,7 +190,7 @@ public static extern int MessageBoxTimeout(IntPtr hWnd, String text, String capt
 '@
 $MsgBox = "[Win32.Win32MessageBox]" -as [type]
 if ($MsgBox -eq $null) {
-    $MsgBox = Add-Type -TypeDefinition $Signature -Name "Win32MessageBox" -Namespace "Win32" -PassThru
+    $MsgBox = Add-Type -MemberDefinition $Signature -Name "Win32MessageBox" -Namespace "Win32" -PassThru
 }
 
 $ButtonType = 65572 
