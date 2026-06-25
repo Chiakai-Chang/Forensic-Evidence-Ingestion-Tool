@@ -5,6 +5,76 @@
 
 本工具專為**現場數位鑑識人員返回駐地後保存與歸檔數位證據**所設計。旨在解決 Windows 系統下複製超長路徑檔案時容易卡死、傳輸緩慢，以及檔案與資料夾時間戳記（Metadata Timestamps）在複製過程中遭到修改等實務痛點，同時提供符合數位證據監管鏈（Chain of Custody）與同一性要求之雙重 SHA-256 雜湊對撞與驗證機制。
 
+## 📊 運作架構與數據同一性流程 (Workflow & Integrity Flow)
+
+本工具在執行時，會自動進行以下標準鑑識工作流，確保「來源端」與「目的端」資料完全一致並留下驗證憑證：
+
+```mermaid
+flowchart TD
+    %% Node Definitions
+    Source["📂 來源端：原始扣案數位證據 (USB/磁碟)
+    ---------------------------------------------
+    • 原始檔案與資料夾
+    • 包含超長路徑與特殊字元"]
+    
+    Subst["⚡ 長路徑防禦 (subst 掛載)
+    ---------------------------------------------
+    • 縮短路徑至 X:\\ 根目錄"]
+    
+    SourceHash["🔒 階段 1：來源端雜湊預算
+    ---------------------------------------------
+    • 於本地預先計算所有檔案 SHA-256
+    • 鎖定證據原始狀態，確保監管鏈"]
+    
+    Robocopy["🚀 鑑識級無損傳輸 (Robocopy & Metadata 補正)
+    ---------------------------------------------
+    • 原封不動複製目錄與檔案結構
+    • 完美保留建立/修改/存取時間與屬性
+    • 自動在目的地建立個案隔離資料夾"]
+    
+    TargetDir["📂 目的端：安全儲存區 (NAS/備份硬碟)
+    ---------------------------------------------
+    • 完整複製的實體資料夾結構
+    • 與來源端 100% 相同的 Metadata 時間戳記"]
+    
+    Manifest["📄 產出檔案：證據雜湊值清單.csv
+    ---------------------------------------------
+    • 紀錄檔案相對路徑、大小與修改時間
+    • 紀錄 SHA-256 雜湊值與傳輸校驗狀態
+    • 雙向同步（存在於目的地與來源端）"]
+    
+    Verify["🛡️ 階段 2：目的地同一性驗算
+    ---------------------------------------------
+    • 讀取目的地檔案二次計算 SHA-256
+    • 與來源端雜湊值自動對撞校驗
+    • 確證數據同一性，防止傳輸損毀"]
+
+    %% Flow Connections
+    Source --> Subst
+    Subst --> SourceHash
+    SourceHash --> Robocopy
+    Robocopy --> TargetDir
+    TargetDir --> Verify
+    Verify --> Manifest
+    Manifest -.->|同步回寫| Source
+
+    %% Styling
+    style Source fill:#f9fafd,stroke:#2b579a,stroke-width:2px,color:#000
+    style Subst fill:#fff7e6,stroke:#d48806,stroke-width:1px,color:#000
+    style SourceHash fill:#f0f5ff,stroke:#2f54eb,stroke-width:1px,color:#000
+    style Robocopy fill:#f6ffed,stroke:#52c41a,stroke-width:2px,color:#000
+    style TargetDir fill:#f6ffed,stroke:#52c41a,stroke-width:2px,color:#000
+    style Verify fill:#f9f0ff,stroke:#722ed1,stroke-width:1px,color:#000
+    style Manifest fill:#fffbe6,stroke:#faad14,stroke-width:2px,color:#000
+```
+
+### 🎯 執行後所實現的成果
+- **新增內容**：目的地自動新增個案專用隔離資料夾（與來源資料夾同名），且其根目錄下會自動產出雙向同步的 `Evidence_Manifest_[時間戳記].csv` 清單。
+- **證據同一性**：所有被複製的檔案、資料夾皆保留**完全一致**的建立/修改/存取時間與系統屬性。
+- **法庭公信力**：產出的 CSV 清單詳細紀錄了每個檔案相對於根目錄的相對路徑與 SHA-256 雜湊值，作為監管鏈與法庭確證同一性之客觀憑證。
+
+---
+
 ## 🚀 快速上手 (Quick Start)
 
 您可以使用以下任一方式快速取得工具並執行：
