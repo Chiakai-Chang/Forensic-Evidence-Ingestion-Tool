@@ -77,6 +77,12 @@ flowchart TD
 - **Integrity Preservation**: All copied files and directories retain the original timestamps (creation, modification, last access) and system attributes.
 - **Forensic Admissibility**: The CSV manifest records relative paths and SHA-256 hashes to serve as objective verification of data integrity.
 
+### 🖥️ Execution Demo
+
+Below is the screenshot showing the tool execution in a Windows console, along with the generated CSV manifest loaded in Excel:
+
+![FEIT Execution Demo](assets/Demo.png)
+
 ---
 
 ## 🚀 Quick Start
