@@ -101,7 +101,24 @@ Invoke-WebRequest -Uri "https://github.com/Chiakai-Chang/Forensic-Evidence-Inges
 2. Extract the ZIP file and open the folder.
 3. Double-click **`Run_Tool.bat`** to start.
 
----
+### ⚠️ Security Notice & Resolving Windows Smart App Control Blocks
+
+Due to default Windows security mechanisms (such as Smart App Control or SmartScreen), batch scripts (`.bat`) and PowerShell scripts (`.ps1`) downloaded from the internet **are highly likely to be blocked on first execution**, displaying the following notification:
+
+![Smart App Control Blocked Alert](assets/Alert.png)
+
+As professional forensic practitioners, **always maintain high security awareness and never execute unverified scripts blindly**. We recommend the following steps to verify and unblock the tool:
+
+1. **Source Code Review**: This tool is completely open-source. You can open [Evidence_Ingest_Tool.ps1](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/Evidence_Ingest_Tool.ps1) and [Run_Tool.bat](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/Run_Tool.bat) with any text editor (e.g., Notepad++ or VS Code) to audit the code lines yourself.
+2. **Antivirus Scan**: Manually scan the downloaded folder using Windows Defender or your enterprise security solution.
+3. **Unblock the File (Resolve Mark of the Web)**:
+   - Right-click on **`Run_Tool.bat`** and select **Properties**.
+   - Under the **General** tab, locate the **Security** section at the bottom.
+   - Check the **Unblock** box, then click **Apply** or **OK**.
+   
+   ![Unblock Option Location](assets/Unlock.png)
+
+*Once unblocked, you can double-click `Run_Tool.bat` to launch the evidence ingestion workflow.*
 
 ### 💡 Step-by-Step Execution Guide
 Once the tool is running, the workflow takes only three simple steps:

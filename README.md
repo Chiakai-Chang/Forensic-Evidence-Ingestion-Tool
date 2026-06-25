@@ -99,6 +99,24 @@ Invoke-WebRequest -Uri "https://github.com/Chiakai-Chang/Forensic-Evidence-Inges
 2. 解壓縮後，進入該資料夾。
 3. 直接雙擊執行 **`Run_Tool.bat`**，即可啟動圖形選擇介面開始運作。
 
+### ⚠️ 執行前安全提示與 Windows 封鎖排除
+
+由於 Windows 系統的資安機制（如 Smart App Control 智慧型應用程式控制或 SmartScreen），從網路下載的批次檔（`.bat`）與 PowerShell 腳本（`.ps1`）在首次執行時**極可能會被系統自動封鎖**，並跳出如下提示：
+
+![Smart App Control 封鎖提示](assets/Alert.png)
+
+作為鑑識人員，**請務必保持資安警覺，切勿盲目相信並執行任何來源不明的程式碼**。建議您依循以下步驟進行驗證與解除封鎖：
+
+1. **原始碼審查**：本工具完全開源，所有程式碼均在 [Evidence_Ingest_Tool.ps1](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/Evidence_Ingest_Tool.ps1) 與 [Run_Tool.bat](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/Run_Tool.bat) 中，您可以直接使用文字編輯器（如 Notepad++、VS Code）開啟並逐行檢視程式碼，確認沒有惡意行為。
+2. **防毒軟體掃描**：使用單位內建的 Windows Defender 或第三方防毒軟體，對下載的資料夾進行手動掃描。
+3. **解除封鎖（Mark of the Web 排除）**：
+   - 在 **`Run_Tool.bat`** 檔案上按右鍵，選擇 **「內容」**。
+   - 在「一般」索引標籤的最下方，找到「安全性」區段，勾選 **「解除封鎖」**，然後點擊「確定」或「套用」。
+   
+   ![解除封鎖圖示](assets/Unlock.png)
+   
+*完成上述步驟後，即可正常雙擊執行 `Run_Tool.bat` 開始進行證據複製工作。*
+
 ### 💡 執行與操作步驟
 下載並解壓縮完成後，執行與歸檔只需簡單三步：
 1. **啟動**：直接雙擊執行 **`Run_Tool.bat`** 啟動工具。
