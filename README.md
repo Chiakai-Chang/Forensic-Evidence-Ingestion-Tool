@@ -1,5 +1,7 @@
 # Forensic Evidence Ingestion Tool
 
+繁體中文 | [English](README.en.md)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows-blue.svg)]()
 

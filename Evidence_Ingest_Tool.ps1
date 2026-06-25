@@ -56,7 +56,7 @@ function Select-FolderDialog ($Title) {
 
 Clear-Host
 Write-Host "=======================================================" -ForegroundColor Cyan
-Write-Host "     Digital Evidence Ingestion & Verification Tool    " -ForegroundColor Cyan
+Write-Host "            Forensic Evidence Ingestion Tool           " -ForegroundColor Cyan
 Write-Host "     Version: 20260625 | Author: Chiakai Chang         " -ForegroundColor Cyan
 Write-Host "=======================================================" -ForegroundColor Cyan
 Write-Host " [Features] " -ForegroundColor Yellow

@@ -2,7 +2,7 @@
 :: Forensic Evidence Ingestion Tool Launcher (Anti-Flash-Exit)
 :: Pure English script to prevent Windows console encoding / garbling issues.
 
-title Evidence Ingestion Tool Launcher
+title Forensic Evidence Ingestion Tool Launcher
 cd /d "%~dp0"
 
 :: Check for Administrative privileges
