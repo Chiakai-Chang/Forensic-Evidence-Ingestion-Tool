@@ -1,4 +1,4 @@
-# Forensic Evidence Ingestion Tool (數位證據無損傳輸與歸檔工具)
+# Forensic Evidence Ingestion Tool
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows-blue.svg)]()
@@ -18,7 +18,7 @@ Windows 檔案總管預設有 260 字元的路徑長度限制（`MAX_PATH`）。
 - **防斷線/Ctrl+C 遺失報告**：在檔案傳輸完成後，**立刻先存檔並同步**初始的 CSV 驗證清單。即使在後續耗時的「目的地二次驗算」過程中中途按下 `Ctrl + C` 關閉或因網路斷線，已產出的證據出生證明清單也早已安全寫入，不會遺失。
 
 ### 3. Metadata 原始時間戳記與屬性完美保留 (Metadata & Timestamps Preservation)
-- **目錄與檔案無損**：Robocopy 備份核心預設使用 `/DCOPY:DAT /COPY:DAT` 參數，強制將所有子資料夾與檔案的原始修改時間、建立時間、存取時間以及系統屬性原封不動寫入目的地。
+- **目錄與檔案完整性**：Robocopy 備份核心預設使用 `/DCOPY:DAT /COPY:DAT` 參數，強制將所有子資料夾與檔案的原始修改時間、建立時間、存取時間以及系統屬性原封不動寫入目的地。
 - **根目錄補正**：由於 Robocopy 無法將「來源根目錄本身」的時間戳記套用到「目的地根目錄本身」，腳本在複製結束後會自動透過 .NET 底層物件將來源根目錄的 `CreationTime`、`LastWriteTime`、`LastAccessTime` 與 `Attributes` 強制寫入目的地資料夾外殼，達到 100% 的外殼與內部時間戳記對齊。
 
 ### 4. 解決 UAC 管理員權限下「網路磁碟機隱形」問題
@@ -42,8 +42,8 @@ Windows 檔案總管預設有 260 字元的路徑長度限制（`MAX_PATH`）。
 ## 🚀 快速上手 (Quick Start)
 
 ### 步驟 1：建立專案資料夾
-在隨身碟、鑑識工作站或外接硬碟中建立一個資料夾，命名為：
-`數位證據無損傳輸與歸檔工具`
+在隨身碟、鑑識工作站或外接硬碟中建立一個資料夾，例如命名為：
+`Forensic-Evidence-Ingestion-Tool`
 
 ### 步驟 2：放入工具檔案
 將 [Evidence_Ingest_Tool.ps1](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/Evidence_Ingest_Tool.ps1) 與 [Run_Tool.bat](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/Run_Tool.bat) 放進上述資料夾中。
