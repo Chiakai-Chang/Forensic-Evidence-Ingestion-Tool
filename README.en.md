@@ -1,4 +1,4 @@
-# Forensic Evidence Ingestion Tool
+# Forensic Evidence Ingestion Tool (FEIT)
 
 [繁體中文](README.md) | English
 
