@@ -5,8 +5,23 @@
 
 本工具專為**現場數位鑑識人員返回駐地後保存與歸檔數位證據**所設計。旨在解決 Windows 系統下複製超長路徑檔案時容易卡死、傳輸緩慢，以及檔案與資料夾時間戳記（Metadata Timestamps）在複製過程中遭到修改等實務痛點，同時提供符合數位證據監管鏈（Chain of Custody）與同一性要求之雙重 SHA-256 雜湊對撞與驗證機制。
 
----
+## 🚀 快速上手 (Quick Start)
 
+您可以使用以下任一方式快速取得工具並執行：
+
+### 方法 A：一鍵指令下載（適用於終端機與指令操作）
+開啟 Windows PowerShell，貼上並執行以下指令。這將會自動下載工具包並解壓縮至當前路徑下的 `Forensic-Evidence-Ingestion-Tool` 資料夾：
+```powershell
+Invoke-WebRequest -Uri "https://github.com/Chiakai-Chang/Forensic-Evidence-Ingestion-Tool/archive/refs/heads/main.zip" -OutFile "FEIT.zip"; Expand-Archive -Path "FEIT.zip" -DestinationPath "."; Rename-Item -Path "Forensic-Evidence-Ingestion-Tool-main" -NewName "Forensic-Evidence-Ingestion-Tool"; Remove-Item "FEIT.zip"
+```
+*下載完成後，進入 `Forensic-Evidence-Ingestion-Tool` 資料夾，直接雙擊執行 **`Run_Tool.bat`** 即可啟動（工具會自動要求 UAC 管理員權限）。*
+
+### 方法 B：直接下載 ZIP 壓縮檔（適用於瀏覽器下載）
+1. 點擊 **[下載 ZIP 壓縮檔](https://github.com/Chiakai-Chang/Forensic-Evidence-Ingestion-Tool/archive/refs/heads/main.zip)** 取得工具包。
+2. 解壓縮後，進入該資料夾。
+3. 直接雙擊執行 **`Run_Tool.bat`**，即可啟動圖形選擇介面開始運作。
+
+---
 ## 🌟 核心特色 (Key Features)
 
 ### 1. 超長路徑防禦 (Long Path Resolution)
@@ -36,25 +51,6 @@ Windows 檔案總管預設有 260 字元的路徑長度限制（`MAX_PATH`）。
 * **[Run_Tool.bat](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/Run_Tool.bat)**：全英文批次啟動檔，負責檢查並自動提權至系統管理員（UAC Bypass / Request Admin），並安全呼叫 PowerShell。
 * **[.gitignore](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/.gitignore)**：Git 忽略清單，已預先排除產出的臨時證據 CSV 報告與系統殘留檔。
 * **[LICENSE](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/LICENSE)**：MIT 授權條款。
-
----
-
-## 🚀 快速上手 (Quick Start)
-
-### 步驟 1：建立專案資料夾
-在隨身碟、鑑識工作站或外接硬碟中建立一個資料夾，例如命名為：
-`Forensic-Evidence-Ingestion-Tool`
-
-### 步驟 2：放入工具檔案
-將 [Evidence_Ingest_Tool.ps1](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/Evidence_Ingest_Tool.ps1) 與 [Run_Tool.bat](file:///D:/MyProject/Forensic-Evidence-Ingestion-Tool/Run_Tool.bat) 放進上述資料夾中。
-
-### 步驟 3：執行工具
-1. 雙擊執行 **`Run_Tool.bat`**。
-2. 系統會跳出 UAC 權限提升要求，請點擊「是」以系統管理員權限執行。
-3. **選擇來源端**：在現代化檔案總管視窗中，點選您在現場扣案的原始數位證據資料夾（如 `E:\20260624_PC_證據`）。
-4. **選擇目的地**：點選您要備份的遠端 NAS、公用分享區或儲存硬碟路徑（如 `Z:\★現場數位採證支援\`）。
-5. **預覽確認**：在終端機視窗中核對來源路徑與目的地路徑是否正確無誤。
-6. **開始備份**：按下 `Enter`（或輸入 Y）確認，程式將全自動完成虛擬碟掛載、來源雜湊計算、Robocopy 傳輸、虛擬碟拔除、產出報告並進行目的地驗算。
 
 ---
 
