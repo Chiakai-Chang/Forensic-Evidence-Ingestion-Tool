@@ -143,7 +143,7 @@ foreach ($File in $SourceFiles) {
 
 Write-Host "[3/5] Executing high-speed metadata preservation backup (Robocopy)..." -ForegroundColor Cyan
 Write-Host "-> Transporting bytes... Progress will be shown below:" -ForegroundColor Gray
-robocopy "${AvailableDrive}\" "$FinalTargetDir" /E /DCOPY:DAT /COPY:DAT /R:2 /W:2 /NFL /NDL /NJH /NJS
+robocopy "${AvailableDrive}\" "$FinalTargetDir" /E /DCOPY:DAT /COPY:DAT /R:2 /W:2 /NFL
 
 # Explicitly preserve metadata (timestamps & attributes) of the root folder itself
 try {
