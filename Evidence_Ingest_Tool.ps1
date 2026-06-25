@@ -108,7 +108,7 @@ if (-not $AvailableDrive) {
 }
 Write-Host "`n[PREP] Allocating Virtual Drive: [ $AvailableDrive ]" -ForegroundColor Yellow
 
-Write-Host "[1/5] Mapping virtual drive for long path defense..." -ForegroundColor Yellow
+Write-Host "[1/5] Mapping virtual drive to bypass long path limit..." -ForegroundColor Yellow
 subst $AvailableDrive "$SourceDir"
 
 Write-Host "[2/5] Calculating SOURCE SHA-256 manifest..." -ForegroundColor Cyan
@@ -141,7 +141,7 @@ foreach ($File in $SourceFiles) {
     }
 }
 
-Write-Host "[3/5] Executing high-speed metadata preservation backup (Robocopy)..." -ForegroundColor Cyan
+Write-Host "[3/5] Copying directory structure and preserving metadata (Robocopy)..." -ForegroundColor Cyan
 Write-Host "-> Transporting bytes... Progress will be shown below:" -ForegroundColor Gray
 robocopy "${AvailableDrive}\" "$FinalTargetDir" /E /DCOPY:DAT /COPY:DAT /R:2 /W:2 /NFL
 
@@ -245,7 +245,7 @@ if ($Response -eq 6 -or $Response -eq 32000) {
     if ($MismatchCount -gt 0) {
         Write-Host " ❌ Corrupted/Missing Files: $MismatchCount (Check $CsvFileName!)" -ForegroundColor Red
     } else {
-        Write-Host "  Evidence Integrity     : 100% PERFECT MATCH. Chain of custody secured." -ForegroundColor Green
+        Write-Host "  Evidence Integrity     : 100% MATCH. SHA-256 verification complete." -ForegroundColor Green
     }
 } else {
     Write-Host "`n[5/5] Verification skipped by forensic examiner." -ForegroundColor Yellow

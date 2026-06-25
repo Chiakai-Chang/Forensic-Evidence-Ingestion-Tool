@@ -21,7 +21,7 @@ flowchart TD
     • Original files and folders
     • Contains long paths & special characters"]
     
-    Subst["⚡ Long Path Defense (subst Mapping)
+    Subst["⚡ Bypassing Long Path Limit (subst Mapping)
     ---------------------------------------------
     • Map path temporarily to virtual X:\\ drive"]
     
@@ -30,11 +30,11 @@ flowchart TD
     • Pre-calculate SHA-256 hashes of all source files
     • Lock original evidence state to secure chain of custody"]
     
-    Robocopy["🚀 Forensic Preservation Transfer (Robocopy & Metadata Fix)
+    Robocopy["🚀 File Copy & Metadata Preservation (Robocopy & Metadata Fix)
     ---------------------------------------------
     • Replicate directory & file structure
     • Copy all original metadata & timestamps (DCOPY:DAT / COPY:DAT)
-    • Automatically create isolated target folders"]
+    • Automatically create corresponding target folders"]
     
     TargetDir["📂 Destination: Secure Storage (NAS/Backup Drive)
     ---------------------------------------------
@@ -73,9 +73,9 @@ flowchart TD
 ```
 
 ### 🎯 Key Outcomes
-- **New Deliverables**: Creates an isolated case directory in the destination named after the source folder, containing a bi-directionally synced `Evidence_Manifest_[timestamp].csv`.
-- **Integrity Preservation**: All copied files and directories retain **exactly identical** timestamps (creation, modification, last access) and system attributes.
-- **Forensic Admissibility**: The CSV manifest records relative paths and SHA-256 hashes to serve as objective evidence of non-tampering for legal presentations.
+- **New Deliverables**: Creates a target directory in the destination named after the source folder, containing a bi-directionally synced `Evidence_Manifest_[timestamp].csv`.
+- **Integrity Preservation**: All copied files and directories retain the original timestamps (creation, modification, last access) and system attributes.
+- **Forensic Admissibility**: The CSV manifest records relative paths and SHA-256 hashes to serve as objective verification of data integrity.
 
 ---
 
@@ -110,23 +110,23 @@ Once the tool is running, the workflow takes only three simple steps:
 
 ## 🌟 Key Features
 
-### 1. Long Path Defense (Long Path Resolution)
-To bypass the 260-character Windows path limit (`MAX_PATH`), the tool **dynamically identifies a free drive letter** (searching backwards from `X:` to `D:`) and maps the source folder as a virtual drive using the native `subst` command. This reduces the source path to just 3 characters (e.g., `X:\`), eliminating copy errors on deeply nested directories (e.g., `node_modules` or web caches).
+### 1. Bypassing Long Path Limit (Long Path Resolution)
+To bypass the 260-character Windows path limit (`MAX_PATH`), the tool **dynamically identifies a free drive letter** (searching backwards from `X:` to `D:`) and maps the source folder as a virtual drive using the native `subst` command. This reduces the source path to just 3 characters (e.g., `X:\`), eliminating copy errors on deeply nested directories.
 
 ### 2. Forensic Manifest and Robustness
-- **Pre-calculation**: Calculates SHA-256 hashes of all source files *before* any network transfer begins, locking the baseline state.
+- **Source Hashing**: Calculates SHA-256 hashes of all source files *before* the copy begins, recording the baseline state.
 - **Save-First Integrity**: The CSV manifest is saved and synchronized back to the source *before* the post-copy verification stage begins. If the user cancels the verification via `Ctrl + C` or if a network dropout occurs, the baseline manifest remains safe on both drives.
 - **Idempotency**: Skips previous `Evidence_Manifest_*.csv` files during subsequent runs.
 
 ### 3. Folder & File Timestamp Preservation
 - **Preserve Metadata**: Replicates subdirectories and files using Robocopy with `/DCOPY:DAT /COPY:DAT` to copy all write, creation, access times, and attributes.
-- **Root Folder Fix**: Explicitly reads the source parent folder's timestamps and clones them to the newly created target directory using .NET file properties, achieving 100% outer folder matching.
+- **Root Folder Fix**: Explicitly reads the source parent folder's timestamps and clones them to the newly created target directory using .NET file properties, ensuring matching root folder metadata.
 
 ### 4. Admin Network Drive Mount Sync
 Standard mapped network drives (e.g., `Y:`, `Z:`) are isolated between user and elevated Administrator sessions. The tool automatically queries the registry (`HKCU:\Network`) and mounts these mappings in the background under the elevated context, making them visible in the folder browser.
 
-### 5. Modern P/Invoke Dialog Prompts
-Replaces legacy script prompts with a Win32 native API (`MessageBoxTimeout`) popup, rendering standard Windows 10/11 dialog boxes and preventing blocking/hanging. It safely avoids EDR scripting alert blocks.
+### 5. P/Invoke Dialog Prompts
+Replaces legacy script prompts with a Win32 native API (`MessageBoxTimeout`) popup, rendering standard Windows dialog boxes to avoid script-based blocks by security software (EDR).
 
 ---
 
